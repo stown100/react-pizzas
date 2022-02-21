@@ -2,10 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Button } from '.';
+import Preloader from './Preloader/Preloader'
 
 
-function PizzaBlock({ category, imageUrl, name, price, rating, sizes, types }) {
+function PizzaBlock({ category, imageUrl, name, price, rating, sizes, types, isLoading }) {
     const aviableTypes = ['тонкое', 'классическое'];
+    console.log({ category, imageUrl, name, price, rating, sizes, types, isLoading })
     const avaiableSizes = [26, 30, 40];
     const [activeType, setActiveType] = React.useState(types[0]);
     const [activeSize, setActiveSize] = React.useState(sizes[0]);
@@ -17,7 +19,13 @@ function PizzaBlock({ category, imageUrl, name, price, rating, sizes, types }) {
     const onSelectSize = (index) => {
         setActiveSize(index);
     }
+    // if (isLoading ) {
+    //     return <Preloader />
+    // }
 
+    // return (
+    //     <Preloader />
+    // )
     return (
         <div className="pizza-block">
             <img
@@ -85,6 +93,7 @@ PizzaBlock.propTypes = {
     // Обязательно должен прийти массив чисел
     types: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     sizes: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+    isLoading: PropTypes.bool
 }
 
 // Если вдруг не передал какое-то значение через пропсы, чтоб не ломалось приложение, ставятся дефолтные значения
@@ -93,7 +102,8 @@ PizzaBlock.defaultProps = {
     sizes: [],
     name: 'Тут должно быть название пиццы',
     price: Number,
-    imageUrl: 'Фото пиццы'
+    imageUrl: 'Фото пиццы',
+    isLoading: false
 }
 
 // указываю что onClick это функция
