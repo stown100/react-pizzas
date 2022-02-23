@@ -61,7 +61,7 @@ function Home() {
       <div className="content__items">
         {isLoaded
           ? items.map((obj) =>
-            <PizzaBlock {...obj} key={obj.id} addEdCount={cartItems[obj.id] && cartItems[obj.id].length} onClickAddPizza={handleAddPizzaToCart} />)
+            <PizzaBlock {...obj} key={obj.id} addEdCount={cartItems[obj.id] && cartItems[obj.id].items.length} onClickAddPizza={handleAddPizzaToCart} />)
           : Array(12).fill(0).map((item, index) => <Preloader key={index} />)
         }
       </div>
