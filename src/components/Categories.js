@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 // React.memo не даёт лишний раз рендериться компоненту, который не изменяется
 const Categories = React.memo(function Categories({ activeCategory, items, onClickCategory }) {
-    console.log(activeCategory)
     return (
         <div className="categories">
             <ul>

@@ -18,9 +18,10 @@ const SortPopup = React.memo(function SortPopup({ items, activeSortType, onClick
     }
 
     const handleOutsideClic = (e) => {
+        const path = e.path || (e.composedPath && e.composedPath()) || e.composedPath(e.target);
         // Клик вне области  sort__popup
-        if (!e.path.includes(sortRef.current)) {
-            setVisiblePopup(false)
+        if (!path.includes(sortRef.current)) {
+            setVisiblePopup(false);
         }
     }
 

@@ -5,13 +5,11 @@ import { Button } from '.';
 import Preloader from './Preloader/Preloader'
 
 
-function PizzaBlock({ category, imageUrl, name, price, rating, sizes, types, isLoading }) {
+function PizzaBlock({ id, category, imageUrl, name, price, rating, sizes, types, onClickAddPizza, addEdCount }) {
     const aviableTypes = ['тонкое', 'классическое'];
-    console.log({ category, imageUrl, name, price, rating, sizes, types, isLoading })
     const avaiableSizes = [26, 30, 40];
     const [activeType, setActiveType] = React.useState(types[0]);
-    const [activeSize, setActiveSize] = React.useState(sizes[0]);
-
+    const [activeSize, setActiveSize] = React.useState(0);
     const onSelectType = (index) => {
         setActiveType(index)
     }
@@ -19,13 +17,21 @@ function PizzaBlock({ category, imageUrl, name, price, rating, sizes, types, isL
     const onSelectSize = (index) => {
         setActiveSize(index);
     }
+
+    const onAddPizza = () => {
+        const obj = {
+            id,
+            name,
+            imageUrl,
+            price,
+            size: avaiableSizes[activeSize],
+            type: aviableTypes[activeType],
+        }
+        onClickAddPizza(obj) 
+    }
     // if (isLoading ) {
     //     return <Preloader />
     // }
-
-    // return (
-    //     <Preloader />
-    // )
     return (
         <div className="pizza-block">
             <img
@@ -61,7 +67,7 @@ function PizzaBlock({ category, imageUrl, name, price, rating, sizes, types, isL
         </div>
         <div className="pizza-block__bottom">
             <div className="pizza-block__price">от {price} ₽</div>
-            <div className="button button--outline button--add">
+            <button className="button button--outline button--add" onClick={onAddPizza} >
                 <svg
                     width="12"
                     height="12"
@@ -75,8 +81,8 @@ function PizzaBlock({ category, imageUrl, name, price, rating, sizes, types, isL
                     />
                 </svg>
                 <span>Добавить</span>
-                <i>2</i>
-            </div>
+                {addEdCount && <i>{addEdCount}</i>}
+            </button>
         </div>
         </div >
     )
@@ -93,7 +99,9 @@ PizzaBlock.propTypes = {
     // Обязательно должен прийти массив чисел
     types: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     sizes: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    onAddPizza: PropTypes.func,
+    addEdCount: PropTypes.number,
 }
 
 // Если вдруг не передал какое-то значение через пропсы, чтоб не ломалось приложение, ставятся дефолтные значения
